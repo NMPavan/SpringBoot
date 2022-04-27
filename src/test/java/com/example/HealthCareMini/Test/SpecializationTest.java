@@ -2,7 +2,7 @@ package com.example.HealthCareMini.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import org.junit.jupiter.api.ClassOrderer.OrderAnnotation;
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -20,7 +20,7 @@ import com.example.HealthCareMini.repo.SpecializationRepository;
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 //one to use after test done rollback / remove the newly created data
 @Rollback(false)
-//@TestMethodOrder(OrderAnnotation.class)
+@TestMethodOrder(OrderAnnotation.class)
 public class SpecializationTest {
 	@Autowired
 	private SpecializationRepository repo;
@@ -33,6 +33,7 @@ public class SpecializationTest {
 		assertNotNull(spes, "spes record is not created");
 		
 	}
+	
 	
 	
 
