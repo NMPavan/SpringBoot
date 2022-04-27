@@ -16,8 +16,8 @@ public class ISpecializationServiceImpl implements ISpecializationService {
 	private SpecializationRepository repo;
 
 	@Override
-	public void saveSpecializedData(Specialization se) {
-		repo.save(se);
+	public Long saveSpecializedData(Specialization se) {
+		return repo.save(se).getId();
 
 	}
 
@@ -41,5 +41,6 @@ public class ISpecializationServiceImpl implements ISpecializationService {
 		}
 		return null;
 	}
+	
 
 }
