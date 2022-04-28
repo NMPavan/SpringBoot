@@ -34,16 +34,18 @@
 						<td th:text="${ob.name}"></td>
 						<td th:text="${ob.code}"></td>
 						<td th:text="${ob.note}"></td>
-						<td><a>DELETE</a> | <a>UPDATE</a></td>
-
+						<!--  Synatx for url redirect and send some data to controller -->
+						<td><a th:href="@{/spec/delete/(Id=${ob.Id})}"class="btn btn-danger">DELETE</a> | 
+						<a th:href="@{/spec/edit/(Id=${ob.Id})}" class="btn btn-success">UPDATE</a> | 
+                        <a th:href="@{/spec/register}" class="btn btn-success" >REGISTER </a> </td>
 					</tr>
 
 
 				</table>
 
 			</div>
-			<div class="card-footer">
-				<span class="text-success">User SpecializedData!</span>
+			<div class="card-footer" th:if="${message!=null}">
+				<span class="text-success" th:text="${message}">User SpecializedData!</span>
 			</div>
 		</div>
 </body>
