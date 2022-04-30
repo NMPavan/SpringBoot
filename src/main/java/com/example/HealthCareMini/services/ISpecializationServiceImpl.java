@@ -11,7 +11,7 @@ import com.example.HealthCareMini.repo.SpecializationRepository;
 
 @Service
 public class ISpecializationServiceImpl implements ISpecializationService {
-	
+
 	@Autowired
 	private SpecializationRepository repo;
 
@@ -29,18 +29,23 @@ public class ISpecializationServiceImpl implements ISpecializationService {
 	@Override
 	public void removeSpecialization(Long id) {
 		repo.deleteById(id);
-		
+
 	}
 
 	@Override
 	public Specialization getSpecialization(Long id) {
 		Optional<Specialization> sep = repo.findById(id);
-		if(sep.isPresent()) {
+		if (sep.isPresent()) {
 			Specialization se = sep.get();
 			return se;
 		}
 		return null;
 	}
-	
+
+	@Override
+	public void updateSpecializationData(Specialization se) {
+		repo.save(se);
+
+	}
 
 }
