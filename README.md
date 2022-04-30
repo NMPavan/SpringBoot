@@ -1,2 +1,2 @@
 # SpringBoot
-Introduction to springBoot and this repository crudOperations with MySql Database
+Introduction to springBoot and this repository contains crudOperations on MySql Database
