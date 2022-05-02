@@ -60,4 +60,10 @@ public class ISpecializationServiceImpl implements ISpecializationService {
 		return repo.getSpecializationNameCount(name) > 0 ;
 	}
 
+	@Override
+	public boolean isSpecNoteExist(String note) {
+		// TODO Auto-generated method stub
+		return repo.getSpecializationNoteCount(note) > 0;
+	}
+
 }

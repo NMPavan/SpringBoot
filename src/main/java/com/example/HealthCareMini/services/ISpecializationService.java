@@ -12,7 +12,11 @@ public interface ISpecializationService {
 	public void removeSpecialization(Long id);
 	public Specialization getSpecialization(Long id);
 	void updateSpecializationData(Specialization se);
+	
+	//ajax validations for specialization module
 	boolean isSpecCodeExist(String code);
 	
 	boolean isSpecNameExist(String name);
+	
+	boolean isSpecNoteExist(String note);
 }

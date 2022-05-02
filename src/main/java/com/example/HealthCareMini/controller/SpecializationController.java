@@ -40,13 +40,12 @@ public class SpecializationController {
 	}
 
 	@PostMapping("/save")
-	public String saveSpecializationRecord(@ModelAttribute Specialization se, 
-			RedirectAttributes attributes) {
+	public String saveSpecializationRecord(@ModelAttribute Specialization se, RedirectAttributes attributes) {
 		Long id = spes.saveSpecializedData(se);
-		//model.addAttribute("message", id);
+		// model.addAttribute("message", id);
 		String message = "Specialization Record '" + id + "'created";
 		attributes.addAttribute("message", message);
-		//model.addAttribute("message", message);
+		// model.addAttribute("message", message);
 		return "redirect:all";
 	}
 
@@ -70,23 +69,35 @@ public class SpecializationController {
 		attributes.addAttribute("message", "Record (" + Id + ")is removed");
 		return "redirect:all";
 	}
-	
+
+	// ajax validations specialization module
+
 	@GetMapping("/checkcode")
 	@ResponseBody
 	public String specializationCodeCheck(@RequestParam String code) {
 		String message = "";
-		if(spes.isSpecCodeExist(code)) {
-			message = code +" Already exist";
+		if (spes.isSpecCodeExist(code)) {
+			message = code + " Already exist";
 		}
 		return message;
 	}
-	
+
 	@GetMapping("/checkname")
 	@ResponseBody
 	public String specializationNameCheck(@RequestParam String name) {
 		String message = "";
-		if(spes.isSpecNameExist(name)) {
-			message = name +" Already exist";
+		if (spes.isSpecNameExist(name)) {
+			message = name + " Already exist";
+		}
+		return message;
+	}
+
+	@GetMapping("/checknote")
+	@ResponseBody
+	public String specializationNoteCheck(@RequestParam String note) {
+		String message = "";
+		if (spes.isSpecNoteExist(note)) {
+			message = note + "Already exist";
 		}
 		return message;
 	}

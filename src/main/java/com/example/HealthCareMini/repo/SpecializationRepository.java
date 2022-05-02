@@ -14,4 +14,7 @@ public interface SpecializationRepository extends JpaRepository<Specialization, 
 	
 	@Query("select count(name) from Specialization where name=:name")
 	Integer getSpecializationNameCount(String name);
+	
+	@Query("select count(note) from Specialization where note=:note")
+	Integer getSpecializationNoteCount(String note);
 }

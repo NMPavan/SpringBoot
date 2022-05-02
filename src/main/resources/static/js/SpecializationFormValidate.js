@@ -20,16 +20,17 @@ $(document).ready(function() {
 			$('#ErrorCodeName').html('Please Enter Valid<b> Name</b>');
 			$('#ErrorCodeName').css("color", "red");
 		} else {
-			console.log("test");
+			//console.log("test");
 			$.ajax({
 				url: "checkname",
 				data: { "name": nameValue },
 				success: function(rspText) {
-					console.log("text" + rspText);
+					//console.log("text" + rspText);
 					if (rspText != "") {
 						$('#ErrorCodeName').show();
 						$('#ErrorCodeName').html(rspText);
 						$('#ErrorCodeName').css("color", "red");
+						ErrorCodeName = false;
 					} else {
 						$('#ErrorCodeName').hide();
 						ErrorCodeName = true;
@@ -38,6 +39,8 @@ $(document).ready(function() {
 
 			});
 		}
+
+		console.log("ErrorCodeName" + ErrorCodeName)
 
 		return ErrorCodeName;
 
@@ -68,7 +71,9 @@ $(document).ready(function() {
 						$('#ErrorCodedData').show();
 						$('#ErrorCodedData').html(rspText);
 						$('#ErrorCodedData').css("color", "red");
-					} else {
+						ErrorCodeData = false;
+					}
+					else {
 						$('#ErrorCodedData').hide();
 						ErrorCodeData = true;
 					}
@@ -84,7 +89,6 @@ $(document).ready(function() {
 	function validate_errorCodeNote() {
 		var expression = /^[A-Za-z0-9/s]{4,250}$/;
 		var noteValue = $('#note').val();
-
 		if (noteValue === '') {
 			$('#ErrorCodeNote').show();
 			$('#ErrorCodeNote').html('Please Enter <b> Note</b>');
@@ -94,8 +98,24 @@ $(document).ready(function() {
 			$('#ErrorCodeNote').html('Please Enter Valid<b> Note</b>');
 			$('#ErrorCodeNote').css("color", "red");
 		} else {
-			$('#ErrorCodeNote').hide();
-			ErrorCodeNote = true;
+
+			$.ajax({
+				url: "checknote",
+				data: { "note": noteValue },
+				success: function(res) {
+					if (res != "") {
+						$('#ErrorCodeNote').show();
+						$('#ErrorCodeNote').html(res);
+						$('#ErrorCodeNote').css("color", "red");
+						ErrorCodeNote = false;
+					} else {
+						$('#ErrorCodeNote').hide();
+						ErrorCodeNote = true;
+					}
+
+				}
+			});
+
 		}
 
 		return ErrorCodeNote;
@@ -118,13 +138,7 @@ $(document).ready(function() {
 		validate_errorCodeName();
 		validate_errorCodeData();
 		validate_errorCodeNote();
-
-
-console.log("ErrorCodeName"+ ErrorCodeName);
-console.log("ErrorCodeData"+ ErrorCodeData);
-console.log("ErrorCodeData"+ ErrorCodeData);
-
-		if (ErrorCodeName && ErrorCodeData && ErrorCodeData) return true;
+		if (ErrorCodeName && ErrorCodeData && ErrorCodeNote) return true;
 		else return false;
 	});
 
