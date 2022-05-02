@@ -20,8 +20,23 @@ $(document).ready(function() {
 			$('#ErrorCodeName').html('Please Enter Valid<b> Name</b>');
 			$('#ErrorCodeName').css("color", "red");
 		} else {
-			$('#ErrorCodeName').hide();
-			ErrorCodeName = true;
+			console.log("test");
+			$.ajax({
+				url: "checkname",
+				data: { "name": nameValue },
+				success: function(rspText) {
+					console.log("text" + rspText);
+					if (rspText != "") {
+						$('#ErrorCodeName').show();
+						$('#ErrorCodeName').html(rspText);
+						$('#ErrorCodeName').css("color", "red");
+					} else {
+						$('#ErrorCodeName').hide();
+						ErrorCodeName = true;
+					}
+				}
+
+			});
 		}
 
 		return ErrorCodeName;
@@ -42,8 +57,24 @@ $(document).ready(function() {
 			$('#ErrorCodedData').html('Please Enter Valid<b> Code</b>');
 			$('#ErrorCodedData').css("color", "red");
 		} else {
-			$('#ErrorCodedData').hide();
-			ErrorCodeData = true;
+			console.log("test");
+			$.ajax({
+				url: "checkcode",
+				data: { "code": codeValue },
+				success: function(rspText) {
+					console.log("text" + rspText);
+					if (rspText != "") {
+						console.log("abbabab" + rspText);
+						$('#ErrorCodedData').show();
+						$('#ErrorCodedData').html(rspText);
+						$('#ErrorCodedData').css("color", "red");
+					} else {
+						$('#ErrorCodedData').hide();
+						ErrorCodeData = true;
+					}
+				}
+
+			});
 		}
 
 		return ErrorCodeData;
@@ -88,7 +119,12 @@ $(document).ready(function() {
 		validate_errorCodeData();
 		validate_errorCodeNote();
 
-		if (ErrorCodeName && ErrorCodeData && ErrorCodeNote) return true;
+
+console.log("ErrorCodeName"+ ErrorCodeName);
+console.log("ErrorCodeData"+ ErrorCodeData);
+console.log("ErrorCodeData"+ ErrorCodeData);
+
+		if (ErrorCodeName && ErrorCodeData && ErrorCodeData) return true;
 		else return false;
 	});
 

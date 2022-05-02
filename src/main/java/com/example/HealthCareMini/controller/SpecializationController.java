@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.HealthCareMini.Entity.Specialization;
@@ -68,6 +69,26 @@ public class SpecializationController {
 		spes.removeSpecialization(Id);
 		attributes.addAttribute("message", "Record (" + Id + ")is removed");
 		return "redirect:all";
+	}
+	
+	@GetMapping("/checkcode")
+	@ResponseBody
+	public String specializationCodeCheck(@RequestParam String code) {
+		String message = "";
+		if(spes.isSpecCodeExist(code)) {
+			message = code +" Already exist";
+		}
+		return message;
+	}
+	
+	@GetMapping("/checkname")
+	@ResponseBody
+	public String specializationNameCheck(@RequestParam String name) {
+		String message = "";
+		if(spes.isSpecNameExist(name)) {
+			message = name +" Already exist";
+		}
+		return message;
 	}
 
 }

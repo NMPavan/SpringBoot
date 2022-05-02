@@ -48,4 +48,16 @@ public class ISpecializationServiceImpl implements ISpecializationService {
 
 	}
 
+	@Override
+	public boolean isSpecCodeExist(String code) {
+		// TODO Auto-generated method stub
+		return repo.getSpecializationCodeCount(code) > 0;
+	}
+
+	@Override
+	public boolean isSpecNameExist(String name) {
+		// TODO Auto-generated method stub
+		return repo.getSpecializationNameCount(name) > 0 ;
+	}
+
 }
