@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.HealthCareMini.Entity.Specialization;
+import com.example.HealthCareMini.Exception.SpecializationException;
 import com.example.HealthCareMini.repo.SpecializationRepository;
 
 @Service
@@ -26,20 +27,39 @@ public class ISpecializationServiceImpl implements ISpecializationService {
 		return repo.findAll();
 	}
 
+	// implemented the custom Exception handling for delete and edit api
+
 	@Override
 	public void removeSpecialization(Long id) {
-		repo.deleteById(id);
-
+		repo.delete(getSpecialization(id));
 	}
 
 	@Override
 	public Specialization getSpecialization(Long id) {
-		Optional<Specialization> sep = repo.findById(id);
-		if (sep.isPresent()) {
-			Specialization se = sep.get();
-			return se;
+
+//		Optional<Specialization> sep = repo.findById(id);
+//		if (sep.isPresent()) {
+//			Specialization se = sep.get();
+//			return se;
+//		} else {
+//			throw new SpecializationException("Not Found");
+//		}
+//
+//		//optional orElseThrow supplier concept java 8 feature
+//		// return repo.findById(id).orElseThrow(() -> new SpecializationException("Not
+//		// Found"));
+
+		Optional<Specialization> optional = repo.findById(id);
+		if (optional.isPresent()) {
+			return optional.get();
+		} else {
+			throw new SpecializationException(id + " Not Found");
 		}
-		return null;
+		/*
+		 * return repo.findById(id).orElseThrow( ()-> new
+		 * SpecializationNotFoundException(id+ " Not Found") );
+		 */
+
 	}
 
 	@Override
@@ -57,7 +77,7 @@ public class ISpecializationServiceImpl implements ISpecializationService {
 	@Override
 	public boolean isSpecNameExist(String name) {
 		// TODO Auto-generated method stub
-		return repo.getSpecializationNameCount(name) > 0 ;
+		return repo.getSpecializationNameCount(name) > 0;
 	}
 
 	@Override

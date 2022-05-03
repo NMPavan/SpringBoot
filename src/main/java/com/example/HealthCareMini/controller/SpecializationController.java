@@ -11,9 +11,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.HealthCareMini.Entity.Specialization;
+import com.example.HealthCareMini.Exception.SpecializationException;
+import com.example.HealthCareMini.View.SpecializationExcelView;
 import com.example.HealthCareMini.services.ISpecializationService;
 
 @Controller
@@ -35,25 +38,30 @@ public class SpecializationController {
 
 	@GetMapping("/register")
 	public String getAllSpecializationDataPage() {
-
 		return "SpecializationRegister";
 	}
 
 	@PostMapping("/save")
 	public String saveSpecializationRecord(@ModelAttribute Specialization se, RedirectAttributes attributes) {
 		Long id = spes.saveSpecializedData(se);
-		// model.addAttribute("message", id);
 		String message = "Specialization Record '" + id + "'created";
 		attributes.addAttribute("message", message);
-		// model.addAttribute("message", message);
 		return "redirect:all";
 	}
 
 	@GetMapping("/edit")
-	public String updateSpecializationDataPage(@RequestParam Long Id, Model model) {
-		Specialization se = spes.getSpecialization(Id);
-		model.addAttribute("specialization", se);
-		return "SpecializationEdit";
+	public String updateSpecializationDataPage(@RequestParam Long Id, Model model, RedirectAttributes attributes) {
+		String page = null;
+		try {
+			Specialization spec = spes.getSpecialization(Id);
+			model.addAttribute("specialization", spec);
+			page = "SpecializationEdit";
+		} catch (SpecializationException e) {
+			e.printStackTrace();
+			attributes.addAttribute("message", e.getMessage());
+			page = "redirect:all";
+		}
+		return page;
 	}
 
 	@PostMapping("/update")
@@ -65,8 +73,13 @@ public class SpecializationController {
 
 	@GetMapping("/delete")
 	public String deleteSpecializationData(@RequestParam Long Id, RedirectAttributes attributes) {
-		spes.removeSpecialization(Id);
-		attributes.addAttribute("message", "Record (" + Id + ")is removed");
+		try {
+			spes.removeSpecialization(Id);
+			attributes.addAttribute("message", "Record (" + Id + ") is removed");
+		} catch (SpecializationException e) {
+			e.printStackTrace();
+			attributes.addAttribute("message", e.getMessage());
+		}
 		return "redirect:all";
 	}
 
@@ -100,6 +113,24 @@ public class SpecializationController {
 			message = note + "Already exist";
 		}
 		return message;
+	}
+
+	@GetMapping("/excel")
+	public ModelAndView specializationExcelShow() {
+
+		// Here need to return ModelandView
+		// define modelandview class
+		ModelAndView m = new ModelAndView();
+
+		// set the excelfuntion implemented class
+		m.setView(new SpecializationExcelView());
+
+		// get the data from db
+		List<Specialization> list = spes.getAllSpecializedData();
+		// send the data to excelview implemented class
+		m.addObject("list", list);
+		// return the modelandview
+		return m;
 	}
 
 }

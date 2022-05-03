@@ -21,6 +21,7 @@
 				<h3>Specialization Data</h3>
 			</div>
 			<div class="card-body">
+			<a th:href="@{/spec/excel}"class="btn btn-success">Excel</a>
 				<table class="table table-hover">
 					<tr class="bg-info">
 						<th>ID</th>
@@ -28,27 +29,30 @@
 						<th>CODE</th>
 						<th>NOTE</th>
 						<th>OPERATION</th>
-						</tr>
+					</tr>
 					<tr th:each="ob:${list}">
 						<td th:text="${ob.Id}"></td>
 						<td th:text="${ob.name}"></td>
 						<td th:text="${ob.code}"></td>
 						<td th:text="${ob.note}"></td>
-						<!--  Synatx for url redirect and send some data to controller -->
-						<td><a th:href="@{/spec/delete/(Id=${ob.Id})}"class="btn btn-danger">DELETE</a> | 
-						<a th:href="@{/spec/edit/(Id=${ob.Id})}" class="btn btn-success">UPDATE</a> | 
-                        <a th:href="@{/spec/register}" class="btn btn-success" >REGISTER </a> </td>
+						<!--  Syntax for url redirect and send some data to controller -->
+						<td><a th:href="@{/spec/delete/(Id=${ob.Id})}"
+							class="btn btn-danger">DELETE</a> | <a
+							th:href="@{/spec/edit/(Id=${ob.Id})}" class="btn btn-success">UPDATE</a>
+							| <a th:href="@{/spec/register}" class="btn btn-success">REGISTER
+						</a></td>
 					</tr>
 
 
 				</table>
 
 			</div>
-			<div class="card-footer" th:if="${message!=null}">
-				<span class="text-success" th:text="${message}">User SpecializedData!</span>
+			<div class="card-footer bg-white text-success"
+				th:if="${message!=null}">
+				<span th:text="${message}"></span>
 			</div>
 		</div>
-		</div>
+	</div>
 </body>
 
 </html>
