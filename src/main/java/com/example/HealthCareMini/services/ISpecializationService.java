@@ -19,4 +19,9 @@ public interface ISpecializationService {
 	boolean isSpecNameExist(String name);
 	
 	boolean isSpecNoteExist(String note);
+	
+	
+	public boolean isSpecCodeExistForEdit(String code,Long Id);
+	
+	public boolean isSpecNameExistForEdit(String name,Long Id);
 }

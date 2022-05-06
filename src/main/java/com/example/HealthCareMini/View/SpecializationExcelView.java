@@ -19,6 +19,7 @@ public class SpecializationExcelView extends AbstractXlsxView {
 	protected void buildExcelDocument(Map<String, Object> model, Workbook workbook, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 
+		//define the name of xlsx
 		response.addHeader("Content-Disposition", "attachment;fileName=SPEC.xlsx");
 
 		// read the data from controller
@@ -30,6 +31,8 @@ public class SpecializationExcelView extends AbstractXlsxView {
 		// add row header
 
 		setRowHeader(sheet);
+		
+		//"list":[{},{}......]
 
 		// setbody for list
 

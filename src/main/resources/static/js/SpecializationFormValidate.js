@@ -1,146 +1,148 @@
-$(document).ready(function() {
-	$('#ErrorCodeName').hide();
-	$('#ErrorCodedData').hide();
-	$('#ErrorCodeNote').hide();
+	$(document).ready(function(){
+            //1. hide error section
+            $("#ErrorCodeName").hide();
+           $('#ErrorCodedData').hide();
+	       $('#ErrorCodeNote').hide();
 
-	var ErrorCodeName = false;
-	var ErrorCodeNote = false;
-	var ErrorCodeData = false;
+            //2. define error variable
+            var specCodeError = false;
+            var specNameError = false;
+            var specNoteError = false;
 
-	function validate_errorCodeName() {
-		var expression = /^[A-Za-z0-9]{4,12}$/;
-		var nameValue = $('#name').val();
-
-		if (nameValue === '') {
-			$('#ErrorCodeName').show();
-			$('#ErrorCodeName').html('Please Enter <b> Name</b>');
-			$('#ErrorCodeName').css("color", "red");
-		} else if (!expression.test(nameValue)) {
-			$('#ErrorCodeName').show();
-			$('#ErrorCodeName').html('Please Enter Valid<b> Name</b>');
-			$('#ErrorCodeName').css("color", "red");
-		} else {
-			//console.log("test");
-			$.ajax({
-				url: "checkname",
-				data: { "name": nameValue },
-				success: function(rspText) {
-					//console.log("text" + rspText);
-					if (rspText != "") {
-						$('#ErrorCodeName').show();
-						$('#ErrorCodeName').html(rspText);
-						$('#ErrorCodeName').css("color", "red");
-						ErrorCodeName = false;
-					} else {
-						$('#ErrorCodeName').hide();
-						ErrorCodeName = true;
+            //3. validate function
+            function validate_specCode() {
+                var val = $("#code").val();
+                var exp = /^[A-Z]{4,10}$/;
+                if(val=='') {
+                    $("#ErrorCodedData").show();
+                    $("#ErrorCodedData").html("*<b>Code</b> Can not be empty")
+                    $("#ErrorCodedData").css('color','red');
+                    specCodeError = false;
+                } else if(!exp.test(val)) {
+                    $("#ErrorCodedData").show();
+                    $("#ErrorCodedData").html("*<b>Code</b> must be 4-12 chars only")
+                    $("#ErrorCodedData").css('color','red');
+                    specCodeError = false;
+                } else {
+	
+	                var Id = 0; //for register
+	                if($("#Id").val()!=undefined) { //edit page
+						specCodeError = true;
+						Id = $("#Id").val();
 					}
-				}
+                    $.ajax({
+						url:'/spec/checkCode',
+						data: {"code": val,"Id":Id},
+						success:function(resTxt) {
+							if(resTxt!='') {
+								$("#ErrorCodedData").show();
+                   				$("#ErrorCodedData").html(resTxt);
+                    			$("#ErrorCodedData").css('color','red');
+                    			specCodeError = false;
+							} else {
+								$("#ErrorCodedData").hide();
+								specCodeError = true;
+							}
+						}
+						
+					});
+					//$("#ErrorCodedData").hide();
+					//specCodeError = true;
+                }
+                return specCodeError;
+            }
 
-			});
-		}
-
-		console.log("ErrorCodeName" + ErrorCodeName)
-
-		return ErrorCodeName;
-
-	}
-
-
-	function validate_errorCodeData() {
-		var expression = /^[A-Za-z0-9]{4,12}$/;
-		var codeValue = $('#code').val();
-
-		if (codeValue === '') {
-			$('#ErrorCodedData').show();
-			$('#ErrorCodedData').html('Please Enter <b> Code</b>');
-			$('#ErrorCodedData').css("color", "red");
-		} else if (!expression.test(codeValue)) {
-			$('#ErrorCodedData').show();
-			$('#ErrorCodedData').html('Please Enter Valid<b> Code</b>');
-			$('#ErrorCodedData').css("color", "red");
-		} else {
-			console.log("test");
-			$.ajax({
-				url: "checkcode",
-				data: { "code": codeValue },
-				success: function(rspText) {
-					console.log("text" + rspText);
-					if (rspText != "") {
-						console.log("abbabab" + rspText);
-						$('#ErrorCodedData').show();
-						$('#ErrorCodedData').html(rspText);
-						$('#ErrorCodedData').css("color", "red");
-						ErrorCodeData = false;
+            function validate_specName() {
+                var val = $("#name").val();
+                var exp = /^[A-Za-z0-9\s\.]{4,60}$/;
+                if(val=='') {
+                    $("#ErrorCodeName").show();
+                    $("#ErrorCodeName").html("*<b>Name</b> Can not be empty")
+                    $("#ErrorCodeName").css('color','red');
+                    specNameError = false;
+                } else if(!exp.test(val)) {
+                    $("#ErrorCodeName").show();
+                    $("#ErrorCodeName").html("*<b>Name</b> must be 4-25 chars")
+                    $("#ErrorCodeName").css('color','red');
+                    specNameError = false;
+                } else {
+	                var Id = 0; //for register
+	                if($("#Id").val()!=undefined) { //edit page
+						specCodeError = true;
+						Id = $("#Id").val();
+						console.log("Id"+ Id);
 					}
-					else {
-						$('#ErrorCodedData').hide();
-						ErrorCodeData = true;
-					}
-				}
+					console.log("inside else" + Id);
+					console.log("code"+ val);
+                    $.ajax({
+						url:'/spec/checkname',
+						data: {"name": val,"Id":Id},
+						success:function(resTxt) {
+							if(resTxt!='') {
+								$("#ErrorCodeName").show();
+                   				$("#ErrorCodeName").html(resTxt);
+                    			$("#ErrorCodeName").css('color','red');
+                    			specCodeError = false;
+							} else {
+								console.log("inside else??");
+								$("#ErrorCodeName").hide();
+								specCodeError = true;
+							}
+						}
+						
+					});
+	
+                    $("#ErrorCodeName").hide();
+                    specNameError = true;
+                }
+                
+                return specNameError;
+            }
 
-			});
-		}
+            function validate_specNote() {
+                var val = $("#note").val();
+                var exp = /^[A-Za-z0-9\s\.\-\,\']{10,250}$/;
+                if(val=='') {
+                    $("#ErrorCodeNote").show();
+                    $("#ErrorCodeNote").html("*<b>Note</b> Can not be empty")
+                    $("#ErrorCodeNote").css('color','red');
+                    specNoteError = false;
+                } else if(!exp.test(val)) {
+                    $("#ErrorCodeNote").show();
+                    $("#ErrorCodeNote").html("*<b>Note</b> can have 10 to 150 chars[A-Za-z0-9.,-(space)]")
+                    $("#ErrorCodeNote").css('color','red');
+                    specNoteError = false;
+                } else {
+                    $("#ErrorCodeNote").hide();
+                    specNoteError = true;
+                }
+                 return specNoteError;
+            }
 
-		return ErrorCodeData;
+            //4. action-event
+            $("#code").keyup(function(){
+                $(this).val($(this).val().toUpperCase());
+                validate_specCode();
+            });
 
-	}
+            $("#name").keyup(function(){
+                validate_specName();
+            });
 
-	function validate_errorCodeNote() {
-		var expression = /^[A-Za-z0-9/s]{4,250}$/;
-		var noteValue = $('#note').val();
-		if (noteValue === '') {
-			$('#ErrorCodeNote').show();
-			$('#ErrorCodeNote').html('Please Enter <b> Note</b>');
-			$('#ErrorCodeNote').css("color", "red");
-		} else if (!expression.test(noteValue)) {
-			$('#ErrorCodeNote').show();
-			$('#ErrorCodeNote').html('Please Enter Valid<b> Note</b>');
-			$('#ErrorCodeNote').css("color", "red");
-		} else {
+            $("#note").keyup(function(){
+                validate_specNote();
+            });
 
-			$.ajax({
-				url: "checknote",
-				data: { "note": noteValue },
-				success: function(res) {
-					if (res != "") {
-						$('#ErrorCodeNote').show();
-						$('#ErrorCodeNote').html(res);
-						$('#ErrorCodeNote').css("color", "red");
-						ErrorCodeNote = false;
-					} else {
-						$('#ErrorCodeNote').hide();
-						ErrorCodeNote = true;
-					}
+            //5. on submit
+            $("#specializationForm").submit(function(){
+                validate_specCode();
+                validate_specName();
+                validate_specNote();
 
-				}
-			});
-
-		}
-
-		return ErrorCodeNote;
-
-	}
-
-	$('#name').keyup(function() {
-		return validate_errorCodeName();
-	});
-
-	$('#code').keyup(function() {
-		return validate_errorCodeData();
-	});
-	$('#note').keyup(function() {
-		return validate_errorCodeNote();
-	});
-
-
-	$('#specializationForm').submit(function() {
-		validate_errorCodeName();
-		validate_errorCodeData();
-		validate_errorCodeNote();
-		if (ErrorCodeName && ErrorCodeData && ErrorCodeNote) return true;
-		else return false;
-	});
-
-
-});
+                if(specCodeError 
+                && specNameError 
+                && specNoteError)
+                    return true;
+                else return false;
+            });
+        });

@@ -19,6 +19,12 @@
 	</properties>
 	<dependencies>
 
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>font-awesome</artifactId>
+			<version>4.7.0</version>
+		</dependency>
+
 		<!-- For excel export -->
 		<dependency>
 			<groupId>org.apache.poi</groupId>

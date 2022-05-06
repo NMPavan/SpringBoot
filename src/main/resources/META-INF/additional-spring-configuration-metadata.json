@@ -1,0 +1,12 @@
+{"properties": [
+  {
+    "name": "spring.jsf",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.jsf'"
+  },
+  {
+    "name": "spring.primefaces.FONT_-aWESOME",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.primefaces.FONT_-aWESOME'"
+  }
+]}

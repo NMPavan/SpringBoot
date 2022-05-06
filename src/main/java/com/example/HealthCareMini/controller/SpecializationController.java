@@ -84,36 +84,60 @@ public class SpecializationController {
 	}
 
 	// ajax validations specialization module
-
-	@GetMapping("/checkcode")
+	
+	@GetMapping("/checkCode")
 	@ResponseBody
-	public String specializationCodeCheck(@RequestParam String code) {
+	public String validateSpecCode(
+			@RequestParam String code,
+			@RequestParam Long Id
+			) 
+	{
+		System.out.println("Id" + Id);
+		System.out.println("code" + code);
 		String message = "";
-		if (spes.isSpecCodeExist(code)) {
-			message = code + " Already exist";
-		}
-		return message;
+		if(Id==0 && spes.isSpecCodeExist(code)) { //register check
+			message = code + ", already exist....";
+		} else if((Id!=0) && (spes.isSpecCodeExistForEdit(code,Id))) { //edit check
+			message = code + ", already exist";
+		} 
+
+		return message; //this is not viewName(it is message)
 	}
+
+
+//	@GetMapping("/checkcode")
+//	@ResponseBody
+//	public String specializationCodeCheck(@RequestParam String code, @RequestParam Long Id) {
+//		String message = "";		
+//		if (Id == 0 && spes.isSpecCodeExist(code)) { // register 
+//			message = code + ", already exist...";
+//		} else if (Id != 0 && spes.isSpecCodeExistForEdit(code,Id)) { // edit 
+//			message = code + ", already exist??";
+//		}
+//		return message;
+//	}
 
 	@GetMapping("/checkname")
 	@ResponseBody
-	public String specializationNameCheck(@RequestParam String name) {
+	public String specializationNameCheck(@RequestParam String name,@RequestParam Long Id) {
 		String message = "";
-		if (spes.isSpecNameExist(name)) {
+		if (Id ==0 && spes.isSpecNameExist(name)) {
 			message = name + " Already exist";
+		}else if(Id!=0 && spes.isSpecNameExistForEdit(name, Id)) {
+			message = name  + "Already exist...";
 		}
 		return message;
 	}
-
-	@GetMapping("/checknote")
-	@ResponseBody
-	public String specializationNoteCheck(@RequestParam String note) {
-		String message = "";
-		if (spes.isSpecNoteExist(note)) {
-			message = note + "Already exist";
-		}
-		return message;
-	}
+//
+//	@GetMapping("/checknote")
+//	@ResponseBody
+//	public String specializationNoteCheck(@RequestParam String note) {
+//		String message = "";
+//		if (spes.isSpecNoteExist(note)) {
+//			message = note + "Already exist";
+//		}
+//		return message;
+//	}
 
 	@GetMapping("/excel")
 	public ModelAndView specializationExcelShow() {

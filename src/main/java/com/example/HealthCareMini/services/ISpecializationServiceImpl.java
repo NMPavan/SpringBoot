@@ -36,19 +36,6 @@ public class ISpecializationServiceImpl implements ISpecializationService {
 
 	@Override
 	public Specialization getSpecialization(Long id) {
-
-//		Optional<Specialization> sep = repo.findById(id);
-//		if (sep.isPresent()) {
-//			Specialization se = sep.get();
-//			return se;
-//		} else {
-//			throw new SpecializationException("Not Found");
-//		}
-//
-//		//optional orElseThrow supplier concept java 8 feature
-//		// return repo.findById(id).orElseThrow(() -> new SpecializationException("Not
-//		// Found"));
-
 		Optional<Specialization> optional = repo.findById(id);
 		if (optional.isPresent()) {
 			return optional.get();
@@ -85,5 +72,20 @@ public class ISpecializationServiceImpl implements ISpecializationService {
 		// TODO Auto-generated method stub
 		return repo.getSpecializationNoteCount(note) > 0;
 	}
+
+	@Override
+	public boolean isSpecCodeExistForEdit(String code, Long id) {
+		// TODO Auto-generated method stub
+		
+	//	System.out.println("count"+ repo.getSpecCodeCountForEdit(code,id));
+		 return repo.getSpecCodeCountForEdit(code,id) > 0;
+	}
+
+	@Override
+	public boolean isSpecNameExistForEdit(String name, Long Id) {
+		return repo.getSpecNameCountForEdit(name, Id) > 0;
+	}
+	
+
 
 }
