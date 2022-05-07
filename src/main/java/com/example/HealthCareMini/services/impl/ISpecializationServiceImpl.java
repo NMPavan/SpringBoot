@@ -1,4 +1,4 @@
-package com.example.HealthCareMini.services;
+package com.example.HealthCareMini.services.impl;
 
 import java.util.List;
 import java.util.Optional;
@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.example.HealthCareMini.Entity.Specialization;
 import com.example.HealthCareMini.Exception.SpecializationException;
 import com.example.HealthCareMini.repo.SpecializationRepository;
+import com.example.HealthCareMini.services.ISpecializationService;
 
 @Service
 public class ISpecializationServiceImpl implements ISpecializationService {
