@@ -1,6 +1,8 @@
 package com.example.HealthCareMini.services.impl;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,7 +11,6 @@ import com.example.HealthCareMini.Entity.Doctor;
 import com.example.HealthCareMini.Exception.DoctorException;
 import com.example.HealthCareMini.repo.DoctorRepository;
 import com.example.HealthCareMini.services.DoctorService;
-
 
 @Service
 public class IDoctorServiceImpl implements DoctorService {
@@ -50,6 +51,14 @@ public class IDoctorServiceImpl implements DoctorService {
 	@Override
 	public void updateDoctorData(Doctor d) {
 		docrepo.save(d);
+	}
+
+	@Override
+	public Map<Long, String> getDoctorIdAndNames() {
+		List<Object[]> list = docrepo.getDoctorIdAndNames();
+		Map<Long, String> map = list.stream().collect(Collectors.toMap(ob -> Long.valueOf(ob[0].toString()),
+				ob -> ob[1].toString() + " " + ob[2].toString()));
+		return map;
 	}
 
 }

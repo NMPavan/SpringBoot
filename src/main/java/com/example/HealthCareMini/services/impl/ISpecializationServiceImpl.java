@@ -1,7 +1,9 @@
 package com.example.HealthCareMini.services.impl;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -77,16 +79,24 @@ public class ISpecializationServiceImpl implements ISpecializationService {
 	@Override
 	public boolean isSpecCodeExistForEdit(String code, Long id) {
 		// TODO Auto-generated method stub
-		
-	//	System.out.println("count"+ repo.getSpecCodeCountForEdit(code,id));
-		 return repo.getSpecCodeCountForEdit(code,id) > 0;
+
+		// System.out.println("count"+ repo.getSpecCodeCountForEdit(code,id));
+		return repo.getSpecCodeCountForEdit(code, id) > 0;
 	}
 
 	@Override
 	public boolean isSpecNameExistForEdit(String name, Long Id) {
 		return repo.getSpecNameCountForEdit(name, Id) > 0;
 	}
-	
 
+	@Override
+	public Map<Long, String> getIdAndNameFromSpecia() {
+		// TODO Auto-generated method stub
+		List<Object[]> list = repo.getIdAndNameFromSpec();
+
+		Map<Long, String> map = list.stream()
+				.collect(Collectors.toMap(ob -> Long.valueOf(ob[0].toString()), ob -> ob[1].toString()));
+		return map;
+	}
 
 }

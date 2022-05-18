@@ -1,5 +1,7 @@
 package com.example.HealthCareMini.repo;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -23,4 +25,8 @@ public interface SpecializationRepository extends JpaRepository<Specialization, 
 	
 	@Query("SELECT COUNT(name) FROM Specialization  WHERE name=:name AND Id!=:Id")
 	Integer getSpecNameCountForEdit(String name,Long Id);
+	
+	@Query("SELECT Id,name FROM Specialization")
+	List<Object[]> getIdAndNameFromSpec();
+
 	}

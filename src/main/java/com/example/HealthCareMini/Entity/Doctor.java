@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -37,12 +39,28 @@ public class Doctor {
 	@Column(name="doc_col_mobile",unique = true)
 	private String mobile;
 	
-	@Column(name="doc_col_gender",unique = true)
+	@Column(name="doc_col_gender")
 	private String gender;
 	
 	@Column(name="doc_col_note",unique = true)
 	private String note;
 	
+	@Column(name="doc_col_image", unique= true)
+	private String photoLoc;
 	
 	
+	//MODULE INTEGRATION
+	/* ASSOCIATION MAPPING NEED TO DO
+	 * PRIMARY KEY OF CHILD DATABASE NEED TO USE AS FOREIGNKEY TO GET THE DATA
+	 * EX: HERE WE HAVE DOCTOR (PARENT) --> SPECIALIZATION(CHILD) HERE WE ARE
+	 *  INTEGRATING SPECIALIZATION MODULE TO DOCTOR MODULE.
+	 *  STEP 1: CREATE A JOIN COLUMN of SPECIALIZATION MODULE
+	 *  STEP 2: GO TO CHILD REPOSITORY AND WRITE THE HQL TO GET ID,NAME
+	 *  STEP 3 GO TO CHILD SERVICE AND SERVICEIMPL TO RETURN THE ID,NAME IN MAP<INTEGER,STRING>
+	 *  STEP 4: GO TO PARENT CONTROLLER TO WRITE THE SOME METHOD TO SEND THE DATA TO REGISTER AND EDIT PAGE
+	 *  */
+	
+	@ManyToOne
+	@JoinColumn(name="doc_spec_id")
+	private Specialization specId;
 }

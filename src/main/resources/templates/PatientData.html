@@ -22,38 +22,32 @@
 				<h3>DOCTOR DATA GRID</h3>
 			</div>
 			<div class="card-body">
-				<a th:href="@{/doctor/register}" class="btn btn-success">REGISTER</a>
-				<a th:href="@{doctor/save}" class="btn btn-success">Excel<i
-					class="fa fa-file-excel-o" aria-hidden="true"></i></a>
-				<table class="table table-hover">
-					<tr class="bg-info">
-						<th>IMAGE</th>
-						<th>NAME</th>
-						<th>EMAIL</th>
-						<th>ADDRESS</th>
-						<th>MOBILE</th>
-						<th>GENDER</th>
-						<th>SPECIALIZATION</th>
+				<a th:href="@{/Patient/register}" class="btn btn-success">REGISTER</a>
+				<!-- 	<a th:href="@{doctor/save}" class="btn btn-success">Excel<i
+					class="fa fa-file-excel-o" aria-hidden="true"></i></a> -->
 
+				<table class="table table-hover">
+					<tr class="bg-info text-white">
+						<th>NAME</th>
+						<th>GENDER</th>
+						<th>MOBILE</th>
+						<th>MEDICAL HISTORY</th>
 						<th>OPERATION</th>
 					</tr>
 					<tr th:each="ob:${list}">
-						<td><img th:src="${ob.photoLoc}" width="50" height="70" /></td>
+
 						<td>[[${ob.firstName + ' ' +ob.lastName}]]</td>
-						<td th:text="${ob.email}"></td>
-						<td th:text="${ob.address}"></td>
-						<td th:text="${ob.mobile}"></td>
 						<td th:text="${ob.gender}"></td>
-						<td th:text="${ob.specId.name}"></td>
-						<!--  Syntax for url redirect and send some data to controller -->
-						<td><a th:href="@{/doctor/delete(id=${ob.id})}"
+						<td th:text="${ob.mobile}"></td>
+						<td>[[${ob.mediHistory +"-"+ ob.ifOther}]]</td>
+						<td><a th:href="@{/patient/delete(id=${ob.id})}"
 							class="btn btn-danger">DELETE <i class="fa fa-trash-o"
 								aria-hidden="true"></i>
-						</a> | <a th:href="@{/doctor/edit/(id=${ob.id})}"
-							class="btn btn-success">UPDATE</a></td>
+						</a> | <a th:href="@{/Patient/edit(id=${ob.id})}"
+							class="btn btn-warning">EDIT <i class="fa fa-pencil-square-o"
+								aria-hidden="true"></i></a></td>
 					</tr>
 				</table>
-
 			</div>
 			<div class="card-footer bg-white text-success"
 				th:if="${message!=null}">

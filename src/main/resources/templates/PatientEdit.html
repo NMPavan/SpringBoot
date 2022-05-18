@@ -17,14 +17,14 @@
 	<div class="container">
 		<div class="card">
 			<div class="card-header bg-primary text-white text-center">
-				<h3>DOCTOR REGISTRATION</h3>
+				<h3>Patient Edit</h3>
 			</div>
 			<div class="card-body">
-				<form th:action="@{/doctor/update}" method="POST" id="doctorForm"
-					th:object="${doctor}">
+				<form th:action="@{/Patient/update}" method="POST" id="doctorForm"
+					th:object="${patient}">
 
 					<!-- row#8 -->
-					<div class="row">
+					<!-- <div class="row">
 						<div class="col-2">
 							<label for="photoLoc">Image</label>
 						</div>
@@ -36,7 +36,7 @@
 						<div class="col-6">
 							<span id="photoLocError"></span>
 						</div>
-					</div>
+					</div> -->
 
 					<div class="row">
 						<div class="col-2">
@@ -80,38 +80,38 @@
 
 					<div class="row">
 						<div class="col-2">
-							<label>EMAIL</label>
+							<label>presentAddr</label>
 						</div>
 						<div class="col-6">
-							<input type="text" th:field="*{email}" class="form-control" />
+							<input type="text" th:field="*{presentAddr}" class="form-control" />
 						</div>
 						<div class="col-4">
-							<span id="ErrorCodeEmail">*please enter valid Email</span>
+							<span id="ErrorCodeGender">*please enter valid gender</span>
 						</div>
 					</div>
-
-					<div class="row">
-						<div class="col-2">
-							<label>ADDRESS</label>
-						</div>
-						<div class="col-6">
-							<textarea type="text" th:field="*{address}" class="form-control"></textarea>
-						</div>
-						<div class="col-4">
-							<span id="ErrorCodeAddress">*please enter valid address</span>
-						</div>
-					</div>
-
 
 					<div class="row">
 						<div class="col-2">
 							<label>MOBILE</label>
 						</div>
 						<div class="col-6">
-							<input type="text" th:field="*{mobile}" class="form-control" />
+							<textarea type="text" th:field="*{mobile}" class="form-control"></textarea>
 						</div>
 						<div class="col-4">
-							<span id="ErrorCodeMobile">*please enter valid mobile</span>
+							<span id="ErrorCodeMobile">*please enter valid address</span>
+						</div>
+					</div>
+
+
+					<div class="row">
+						<div class="col-2">
+							<label>communication Address</label>
+						</div>
+						<div class="col-6">
+							<input type="text" th:field="*{commAddr}" class="form-control" />
+						</div>
+						<div class="col-4">
+							<span id="ErrorCodecommAddr">*please enter valid mobile</span>
 						</div>
 					</div>
 
@@ -121,14 +121,15 @@
 						</div>
 						<div class="col-6">
 							<input type="radio" th:field="*{gender}" value="Male" />Male <input
-								type="radio" th:field="*{gender}" value="Female" />Female
+								type="radio" th:field="*{gender}" value="Female" />Female <input
+								type="radio" th:field="*{gender}" value="Other" />Other
 						</div>
 						<div class="col-4">
 							<span id="ErrorCodeGender">*please enter valid gender</span>
 						</div>
 					</div>
 
-					<div class="row">
+					<!-- 	<div class="row">
 						<div class="col-2">
 							<label>NOTE</label>
 						</div>
@@ -138,39 +139,52 @@
 						<div class="col-4">
 							<span id="ErrorCodeNote">*please enter valid note</span>
 						</div>
-					</div>
+					</div> -->
 
 
-					<!-- row#Dynamic -->
 					<div class="row">
 						<div class="col-2">
-							<label for="specialization">Specialization</label>
+							<label for="mediHistory">Medical History</label>
 						</div>
 						<div class="col-4">
-							<select th:field="*{specId}" name="specId"
-								class="form-control">
-								<option value="">-SELECT-</option>
-								<option th:each="ob:${specializations}" th:value="${ob.key}"
-									th:text="${ob.value}"></option>
-							</select>
+							<input type="checkbox" th:field="*{mediHistory}" value="Ulcer" />Ulcer
+							<input type="checkbox" th:field="*{mediHistory}" value="Cancer" />Cancer
+							<input type="checkbox" th:field="*{mediHistory}" value="BP" />BP
+							<input type="checkbox" th:field="*{mediHistory}" value="Sugra" />Sugar
 						</div>
 						<div class="col-6">
-							<span id="specializationError"></span>
+							<span id="mediHistoryError"></span>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-2">
+							<label for="ifOther">IF Other History <input
+								type="checkbox" th:field="*{mediHistory}" value="ifOther" />
+							</label>
+						</div>
+						<div class="col-4">
+							<input type="text" th:field="*{ifOther}" class="form-control" />
+						</div>
+						<div class="col-6">
+							<span id="mediHistoryError"></span>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-2">
+							<label for="dateOfBith">DateOfBith</label>
+						</div>
+						<div class="col-4">
+							<input type="date" th:field="*{dateOfBith}"
+								class="form-control" />
+						</div>
+						<div class="col-6">
+							<span id="dateOfBithError"></span>
 						</div>
 					</div>
 
 
-					<!-- <div class="row">
-						<div class="col-2">
-							<label>Image</label>
-						</div>
-						<div class="col-6">
-							<input type="text" th:field="*{imageLoc}" class="form-control" />
-						</div>
-						<div class="col-4">
-							<span id="ErrorCodeImageLoc">*please enter valid Image</span>
-						</div>
-					</div> -->
 					<button type="submit" class=" btn btn-success">
 						Update<i class="fa fa-wrench" aria-hidden="true"></i>
 					</button>

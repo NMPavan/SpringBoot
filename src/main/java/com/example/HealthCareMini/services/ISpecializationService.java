@@ -1,6 +1,7 @@
 package com.example.HealthCareMini.services;
 
 import java.util.List;
+import java.util.Map;
 
 import com.example.HealthCareMini.Entity.Specialization;
 
@@ -24,4 +25,6 @@ public interface ISpecializationService {
 	public boolean isSpecCodeExistForEdit(String code,Long Id);
 	
 	public boolean isSpecNameExistForEdit(String name,Long Id);
+	
+	Map<Long,String> getIdAndNameFromSpecia();
 }
