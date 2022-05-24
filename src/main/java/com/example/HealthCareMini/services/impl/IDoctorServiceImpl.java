@@ -4,13 +4,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.HealthCareMini.Entity.Doctor;
+import com.example.HealthCareMini.Entity.User;
 import com.example.HealthCareMini.Exception.DoctorException;
+import com.example.HealthCareMini.Utility.MyMailUtil;
+import com.example.HealthCareMini.Utility.UserUtil;
+import com.example.HealthCareMini.constants.UserRoles;
 import com.example.HealthCareMini.repo.DoctorRepository;
 import com.example.HealthCareMini.services.DoctorService;
+import com.example.HealthCareMini.services.IUserService;
 
 @Service
 public class IDoctorServiceImpl implements DoctorService {
@@ -18,9 +25,37 @@ public class IDoctorServiceImpl implements DoctorService {
 	@Autowired
 	private DoctorRepository docrepo;
 
+	
+	@Autowired
+	private IUserService userService;
+
+	@Autowired
+	private UserUtil util;
+	
+//	@Autowired
+//	private MyMailUtil mailUtil ;
+	
 	@Override
+	@Transactional
 	public Long saveDoctorData(Doctor d) {
-		return docrepo.save(d).getId();
+		Long id = docrepo.save(d).getId();
+		if(id!=null) {
+			String pwd = util.genPwd();
+			User user = new User();
+			user.setDisplayName(d.getFirstName()+" "+d.getLastName());
+			user.setUsername(d.getEmail());
+			user.setPassword(pwd);
+			user.setRole(UserRoles.DOCTOR.name());
+			userService.saveUser(user);
+//			if(genId!=null)
+//				new Thread(new Runnable() {
+//					public void run() {
+//						String text = "Your uname is " + doc.getEmail() +", password is "+ pwd;
+//						mailUtil.send(doc.getEmail(), "DOCTOR ADDED", text);
+//					}
+//				}).start();
+		}
+		return id;
 	}
 
 	@Override

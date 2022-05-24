@@ -48,6 +48,7 @@ public class Patient {
 	@DateTimeFormat(iso = ISO.DATE)
 	@Temporal(TemporalType.DATE)
 	private Date dateOfBith;
+	
 
 	@Column(name = "pat_ms_col")
 	private String marialStatus;

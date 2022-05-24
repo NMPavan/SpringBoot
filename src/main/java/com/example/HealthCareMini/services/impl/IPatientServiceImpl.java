@@ -1,16 +1,20 @@
 package com.example.HealthCareMini.services.impl;
 
-
 import java.util.List;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.HealthCareMini.Entity.Patient;
+import com.example.HealthCareMini.Entity.User;
 import com.example.HealthCareMini.Exception.PatientException;
+import com.example.HealthCareMini.Utility.UserUtil;
+import com.example.HealthCareMini.constants.UserRoles;
 import com.example.HealthCareMini.repo.PatientRepoistory;
+import com.example.HealthCareMini.services.IUserService;
 import com.example.HealthCareMini.services.PatientService;
-
 
 @Service
 public class IPatientServiceImpl implements PatientService {
@@ -18,9 +22,29 @@ public class IPatientServiceImpl implements PatientService {
 	@Autowired
 	private PatientRepoistory repo;
 
+	@Autowired
+	private IUserService userService;
+
+	@Autowired
+	private UserUtil util;
+
+//	@Autowired
+//	private MyMailUtil mailUtil;
+
 	@Override
+	@Transactional
 	public Long savePatient(Patient patient) {
-		return repo.save(patient).getId();
+		Long id = repo.save(patient).getId();
+		if (id != null) {
+			String pwd = util.genPwd();
+			User user = new User();
+			user.setDisplayName(patient.getFirstName() + " " + patient.getLastName());
+			user.setUsername(patient.getEmail());
+			user.setPassword(pwd);
+			user.setRole(UserRoles.PATIENT.toString());
+			userService.saveUser(user);
+		}
+		return id;
 	}
 
 	@Override

@@ -1,6 +1,6 @@
 <html xmlns:th="https://www.thymeleaf.org/">
 
-<head>
+<!-- <head>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 <link rel="stylesheet"
@@ -13,9 +13,12 @@
 	padding-bottom: 8px;
 }
 </style>
-</head>
+</head> -->
+
+<div th:replace="fragments/commonui :: header"></div>
 
 <body>
+<div th:replace="fragments/commonui :: menu"></div>
 	<div class="container">
 		<div class="card">
 			<div class="card-header bg-primary text-white text-center">
