@@ -12,4 +12,5 @@ public interface AppointmentService {
 	public void removeAppointmentRecord(Long id);
 	public Appointment getAppointmentRecord(Long id);
 	void updateAppointmentData(Appointment d);
+	List<Object[]> getAppoinmentsByDoctor(Long docId);
 }

@@ -25,38 +25,38 @@ public class IDoctorServiceImpl implements DoctorService {
 	@Autowired
 	private DoctorRepository docrepo;
 
-	
 	@Autowired
 	private IUserService userService;
 
 	@Autowired
 	private UserUtil util;
-	
-//	@Autowired
-//	private MyMailUtil mailUtil ;
-	
+
+	@Autowired
+	private MyMailUtil mailUtil ;
+
 	@Override
 	@Transactional
 	public Long saveDoctorData(Doctor d) {
 		Long id = docrepo.save(d).getId();
-		if(id!=null) {
+		if (id != null) {
 			String pwd = util.genPwd();
 			User user = new User();
-			user.setDisplayName(d.getFirstName()+" "+d.getLastName());
+			user.setDisplayName(d.getFirstName() + " " + d.getLastName());
 			user.setUsername(d.getEmail());
 			user.setPassword(pwd);
 			user.setRole(UserRoles.DOCTOR.name());
-			userService.saveUser(user);
-//			if(genId!=null)
-//				new Thread(new Runnable() {
-//					public void run() {
-//						String text = "Your uname is " + doc.getEmail() +", password is "+ pwd;
-//						mailUtil.send(doc.getEmail(), "DOCTOR ADDED", text);
-//					}
-//				}).start();
+			Long genId = userService.saveUser(user);
+			if(genId!=null)
+				new Thread(new Runnable() {
+					public void run() {
+						String text = "Your uname is " + d.getEmail() +", password is "+ pwd;
+						mailUtil.send(d.getEmail(), "DOCTOR ADDED", text);
+					}
+				}).start();
 		}
 		return id;
 	}
+	
 
 	@Override
 	public List<Doctor> getAllDoctorData() {
@@ -94,6 +94,11 @@ public class IDoctorServiceImpl implements DoctorService {
 		Map<Long, String> map = list.stream().collect(Collectors.toMap(ob -> Long.valueOf(ob[0].toString()),
 				ob -> ob[1].toString() + " " + ob[2].toString()));
 		return map;
+	}
+
+	@Override
+	public List<Doctor> findDoctorBySpecId(Long specId) {
+		return docrepo.findDoctorBySpecId(specId);
 	}
 
 }

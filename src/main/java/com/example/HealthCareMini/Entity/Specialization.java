@@ -22,11 +22,11 @@ public class Specialization {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long Id;
 	
-	@Column(name="spec_name_col" ,length = 10,unique = true)
+	@Column(name="spec_name_col",unique = true)
 	private String name;
 	
-	@Column(name="spec_code_col", length = 25,unique = true)
+	@Column(name="spec_code_col",unique = true)
 	private String code;
-	@Column(name="spec_note_col" ,length = 250,unique = true)
+	@Column(name="spec_note_col",length = 250,unique = true)
 	private String note;
 }

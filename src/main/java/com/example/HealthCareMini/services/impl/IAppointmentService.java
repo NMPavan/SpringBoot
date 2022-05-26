@@ -42,4 +42,9 @@ public class IAppointmentService implements AppointmentService {
 		apo.save(d);
 	}
 
+	@Override
+	public List<Object[]> getAppoinmentsByDoctor(Long docId) {
+		return apo.getAppointmentByDocId(docId);
+	}
+
 }
