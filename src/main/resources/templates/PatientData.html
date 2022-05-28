@@ -43,7 +43,7 @@
 						<td th:text="${ob.gender}"></td>
 						<td th:text="${ob.mobile}"></td>
 						<td>[[${ob.mediHistory +"-"+ ob.ifOther}]]</td>
-						<td><a th:href="@{/patient/delete(id=${ob.id})}"
+						<td><a th:href="@{/Patient/delete(id=${ob.id})}"
 							class="btn btn-danger">DELETE <i class="fa fa-trash-o"
 								aria-hidden="true"></i>
 						</a> | <a th:href="@{/Patient/edit(id=${ob.id})}"

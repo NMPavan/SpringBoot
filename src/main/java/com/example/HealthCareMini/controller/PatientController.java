@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.HealthCareMini.Entity.Patient;
+import com.example.HealthCareMini.Exception.DoctorException;
 import com.example.HealthCareMini.Exception.PatientException;
 import com.example.HealthCareMini.services.PatientService;
 
@@ -35,7 +36,7 @@ public class PatientController {
 		Long id = patient.savePatient(patientData);
 		String message = id + "Patient record registered";
 		attributes.addAttribute("message", message);
-		return "redirect:all";
+		return "PatientRegister";
 	}
 	
 	@GetMapping("/all")
@@ -71,6 +72,18 @@ public class PatientController {
 		return "redirect:all";
 	}
 
+	
+	@GetMapping("/delete")
+	public String deletePatient(@RequestParam Long id, RedirectAttributes attributes) {
+		try {
+			patient.deletePatient(id);
+			attributes.addAttribute("message","Patient deleted with Id:"+id);
+		} catch(DoctorException e) {
+			e.printStackTrace() ;
+			attributes.addAttribute("message",e.getMessage());
+		}
+		return "redirect:all";
+	}
 	
 	
 	

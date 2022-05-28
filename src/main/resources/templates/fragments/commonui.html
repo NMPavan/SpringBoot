@@ -1,4 +1,5 @@
-<html xmlns:th="https://www.thymeleaf.org/">
+<html xmlns:th="https://www.thymeleaf.org/"
+	xmlns:sec="https://www.thymeleaf.org/extras/spring-security5">
 
 <head th:fragment="header">
 <link rel="stylesheet"
@@ -32,8 +33,8 @@
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		<ul class="navbar-nav mr-auto">
 
-			<!--Specialization START   sec:authorize="hasAuthority('ADMIN')"-->
-			<li class="nav-item dropdown">
+			<!--Specialization START -->
+			<li class="nav-item dropdown" sec:authorize="hasAuthority('ADMIN')">
 				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 				role="button" data-toggle="dropdown" aria-haspopup="true"
 				aria-expanded="false"> Specialization </a>
@@ -45,7 +46,7 @@
 			<!--Specialization END-->
 
 			<!--Doctor START  sec:authorize="hasAuthority('ADMIN')"-->
-			<li class="nav-item dropdown">
+			<li class="nav-item dropdown" sec:authorize="hasAuthority('ADMIN')">
 				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 				role="button" data-toggle="dropdown" aria-haspopup="true"
 				aria-expanded="false"> Doctor </a>
@@ -58,48 +59,51 @@
 
 
 			<!--Patient START sec:authorize="hasAuthority('ADMIN')"-->
-			<li class="nav-item dropdown">
+			<li class="nav-item dropdown" sec:authorize="hasAuthority('ADMIN')">
 				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 				role="button" data-toggle="dropdown" aria-haspopup="true"
 				aria-expanded="false"> Patient </a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-					<a class="dropdown-item" th:href="@{/Patient/register}">Add</a>
-					<a class="dropdown-item" th:href="@{/Patient/all}">View All</a>
+					<a class="dropdown-item" th:href="@{/Patient/register}">Add</a> <a
+						class="dropdown-item" th:href="@{/Patient/all}"
+						sec:authorize="hasAuthority('ADMIN')">View All</a>
 					<!--<a class="dropdown-item" th:href="@{/patient/all}" sec:authorize="hasAuthority('PATIENT')">My Profile</a>-->
 				</div>
 			</li>
 			<!--Patient END-->
 
 			<!--Appointment START  sec:authorize="isAuthenticated()"-->
-			<li class="nav-item dropdown">
+			<li class="nav-item dropdown" sec:authorize="isAuthenticated()"->
 				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 				role="button" data-toggle="dropdown" aria-haspopup="true"
 				aria-expanded="false"> Appointment </a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-					<a class="dropdown-item" th:href="@{/Appointment/register}">Add</a> <a
-						class="dropdown-item" th:href="@{/Appointment/all}">View All</a> <a
-						class="dropdown-item" th:href="@{/Appointment/view}">Book</a> <a
-						class="dropdown-item" th:href="@{/Appointment/currentDoc}">View Mine</a>
+					<a class="dropdown-item" th:href="@{/Appointment/register}"
+						sec:authorize="hasAuthority('ADMIN')">Add</a> <a
+						class="dropdown-item" th:href="@{/Appointment/all}"
+						sec:authorize="hasAuthority('ADMIN')">View All</a> <a
+						class="dropdown-item" th:href="@{/Appointment/view}"
+						sec:authorize="hasAuthority('PATIENT')">Book</a> <a
+						class="dropdown-item" th:href="@{/Appointment/currentDoc}"
+						sec:authorize="hasAuthority('DOCTOR')">View Mine</a>
 				</div>
 			</li>
-			<!--Appointment END-->
 
-			<!--SLOT START-->
+			<!--USER START   ${session.userOb.displayName}-->
 
-			<!--SLOT END-->
-
-			<!--  <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
-        <a class="nav-link" th:href="@{/doc/all}">Documents</a>
-      </li>
-      <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
-        <a class="nav-link" th:href="@{/slots/dashboard}">Dashboard</a>
-      </li>
-       -->
-			<!--USER START-->
+			<li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+				role="button" data-toggle="dropdown" aria-haspopup="true"
+				aria-expanded="false"> <span sec:authentication="name"></span> <span
+					sec:authentication="principal.authorities"></span>
+			</a>
+				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+					<a class="dropdown-item" th:href="@{/user/profile}"> My Profile</a>
+					<a class="dropdown-item" th:href="@{/user/showPwdUpdate}">Password
+						Update</a> <a class="dropdown-item" th:href="@{/logout}"> Logout</a>
+				</div>
+			</li>
 			<!--USER END-->
-
-
-
 		</ul>
 
 	</div>
