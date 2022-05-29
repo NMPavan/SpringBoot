@@ -42,21 +42,21 @@ public class SecureConfig extends WebSecurityConfigurerAdapter {
 		//.antMatchers("/slots/book","/slots/cancel").hasAuthority(UserRoles.PATIENT.name())
 		//.antMatchers("/slots/all","/slots/accept","/slots/reject","/slots/dashboard").hasAuthority(UserRoles.ADMIN.name())
 		
-		//.antMatchers("/user/login","/login").permitAll()
+		.antMatchers("/user/login","/login").permitAll()
 		
 		.anyRequest().authenticated()
 		
 		.and()
 		.formLogin()
-		//.loginPage("/user/login") //show Login Page
-		//.loginProcessingUrl("/login") //POST (do login)
-		.defaultSuccessUrl("/spec/all",true)
-		//.failureUrl("/user/login?error=true") //If login is failed
+		.loginPage("/user/login") //show Login Page
+		.loginProcessingUrl("/login") //POST (do login)
+		.defaultSuccessUrl("/user/setup",true)
+		.failureUrl("/user/login?error=true") //If login is failed
 		
 		.and()
-		.logout();
-//		.logoutRequestMatcher(new AntPathRequestMatcher("/logout")) //URL for Logout
-//		.logoutSuccessUrl("/user/login?logout=true") // On logout success
+		.logout()
+		.logoutRequestMatcher(new AntPathRequestMatcher("/logout")) //URL for Logout
+		.logoutSuccessUrl("/user/login?logout=true"); // On logout success
 		
 
 	}

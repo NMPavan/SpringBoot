@@ -94,7 +94,7 @@
 			<li class="nav-item dropdown" sec:authorize="isAuthenticated()">
 				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 				role="button" data-toggle="dropdown" aria-haspopup="true"
-				aria-expanded="false"> <span sec:authentication="name"></span> <span
+				aria-expanded="false"> <span th:text="${session.userOb.displayName}"></span> <span
 					sec:authentication="principal.authorities"></span>
 			</a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
