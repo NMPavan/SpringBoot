@@ -47,4 +47,10 @@ public class IAppointmentService implements AppointmentService {
 		return apo.getAppointmentByDocId(docId);
 	}
 
+	@Override
+	public List<Object[]> getAppointsmentsByDocUserName(String userName) {
+
+		return apo.getAppointmentsByDocEmail(userName);
+	}
+
 }

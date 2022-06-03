@@ -13,4 +13,6 @@ public interface AppointmentService {
 	public Appointment getAppointmentRecord(Long id);
 	void updateAppointmentData(Appointment d);
 	List<Object[]> getAppoinmentsByDoctor(Long docId);
+	
+	List<Object[]> getAppointsmentsByDocUserName(String userName);
 }

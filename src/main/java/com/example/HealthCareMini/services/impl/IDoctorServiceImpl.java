@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.HealthCareMini.Entity.Doctor;
@@ -33,6 +34,9 @@ public class IDoctorServiceImpl implements DoctorService {
 
 	@Autowired
 	private MyMailUtil mailUtil ;
+	
+	@Autowired
+	private BCryptPasswordEncoder bd;
 
 	@Override
 	@Transactional
@@ -43,7 +47,7 @@ public class IDoctorServiceImpl implements DoctorService {
 			User user = new User();
 			user.setDisplayName(d.getFirstName() + " " + d.getLastName());
 			user.setUsername(d.getEmail());
-			user.setPassword(pwd);
+			user.setPassword(bd.encode(pwd));
 			user.setRole(UserRoles.DOCTOR.name());
 			Long genId = userService.saveUser(user);
 			if(genId!=null)

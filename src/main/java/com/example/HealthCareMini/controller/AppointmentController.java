@@ -1,5 +1,6 @@
 package com.example.HealthCareMini.controller;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 
@@ -115,6 +116,17 @@ public class AppointmentController {
 		List<Object[]> list =  apo.getAppoinmentsByDoctor(id);
 		model.addAttribute("list", list);
 		return "AppointmentSlots";
+	}
+	
+	
+	@GetMapping("/currentDoc")
+	public String getCurrentDocAppointments(
+			Model model,
+			Principal p) 
+	{
+		List<Object[]> list=apo.getAppointsmentsByDocUserName(p.getName());
+		model.addAttribute("list",list);
+		return "AppointmentForDoctor";
 	}
 
 }
