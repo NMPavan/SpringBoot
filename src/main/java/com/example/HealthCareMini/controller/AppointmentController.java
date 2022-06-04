@@ -128,5 +128,7 @@ public class AppointmentController {
 		model.addAttribute("list",list);
 		return "AppointmentForDoctor";
 	}
+	
+	
 
 }

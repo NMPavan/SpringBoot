@@ -39,7 +39,7 @@ public class SecureConfig extends WebSecurityConfigurerAdapter {
 		.antMatchers("/Appointment/register","/Appointment/save","/Appointment/all").hasAuthority(UserRoles.ADMIN.name())
 		
 		.antMatchers("/appointment/view","/appointment/viewslots").hasAuthority(UserRoles.PATIENT.name())
-		//.antMatchers("/slots/book","/slots/cancel").hasAuthority(UserRoles.PATIENT.name())
+		.antMatchers("/slots/book","/slots/cancel").hasAuthority(UserRoles.PATIENT.name())
 		//.antMatchers("/slots/all","/slots/accept","/slots/reject","/slots/dashboard").hasAuthority(UserRoles.ADMIN.name())
 		
 		.antMatchers("/user/login","/login").permitAll()
