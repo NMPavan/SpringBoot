@@ -15,4 +15,6 @@ public interface AppointmentService {
 	List<Object[]> getAppoinmentsByDoctor(Long docId);
 	
 	List<Object[]> getAppointsmentsByDocUserName(String userName);
+	
+	void updateSlotCountForAppoinment(Long id,int count);
 }

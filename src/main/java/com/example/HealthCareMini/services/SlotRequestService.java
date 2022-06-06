@@ -20,4 +20,8 @@ public interface SlotRequestService {
 
 	// PATIENT can see his slots
 	List<SlotRequest> viewSlotsByPatientMail(String patientMail);
+	
+	//DOCTOR can see his slots
+	
+	List<SlotRequest> viewSlotsByDoctorMail(String doctorMail);
 }

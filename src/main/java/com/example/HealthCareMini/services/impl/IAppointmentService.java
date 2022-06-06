@@ -2,6 +2,8 @@ package com.example.HealthCareMini.services.impl;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,6 +53,12 @@ public class IAppointmentService implements AppointmentService {
 	public List<Object[]> getAppointsmentsByDocUserName(String userName) {
 
 		return apo.getAppointmentsByDocEmail(userName);
+	}
+
+	@Transactional
+	public void updateSlotCountForAppoinment(Long id, int count) {
+		apo.updateSlotCountForAppoinment(id, count);
+		
 	}
 
 }

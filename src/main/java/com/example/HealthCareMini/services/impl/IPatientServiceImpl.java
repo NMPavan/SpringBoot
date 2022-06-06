@@ -81,8 +81,7 @@ public class IPatientServiceImpl implements PatientService {
 
 	@Override
 	public Patient getOneByEmail(String email) {
-		// TODO Auto-generated method stub
-		return null;
+		return repo.findByEmail(email).get();
 	}
 
 	@Override

@@ -86,15 +86,31 @@
 						sec:authorize="hasAuthority('PATIENT')">Book</a> <a
 						class="dropdown-item" th:href="@{/Appointment/currentDoc}"
 						sec:authorize="hasAuthority('DOCTOR')">View Mine</a>
+
 				</div>
 			</li>
 
+			<!--SLOT START-->
+			<li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+				role="button" data-toggle="dropdown" aria-haspopup="true"
+				aria-expanded="false"> Slots Request </a>
+				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+					<a class="dropdown-item" th:href="@{/slots/all}"
+						sec:authorize="hasAuthority('ADMIN')">View All</a> <a
+						class="dropdown-item" th:href="@{/slots/patient}"
+						sec:authorize="hasAuthority('PATIENT')">My Slots</a> <a
+						class="dropdown-item" th:href="@{/slots/doctor}"
+						sec:authorize="hasAuthority('DOCTOR')">My Slots</a>
+				</div>
+			</li>
 			<!--USER START   ${session.userOb.displayName}-->
 
 			<li class="nav-item dropdown" sec:authorize="isAuthenticated()">
 				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 				role="button" data-toggle="dropdown" aria-haspopup="true"
-				aria-expanded="false"> <span th:text="${session.userOb.displayName}"></span> <span
+				aria-expanded="false"> <span
+					th:text="${session.userOb.displayName}"></span> <span
 					sec:authentication="principal.authorities"></span>
 			</a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">

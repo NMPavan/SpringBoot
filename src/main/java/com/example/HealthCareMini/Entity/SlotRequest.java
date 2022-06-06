@@ -1,25 +1,20 @@
 package com.example.HealthCareMini.Entity;
 
-import javax.annotation.Generated;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @Entity
 @Table(
-		name="slot_req_tab",
+	name="slot_req_tab",
 		uniqueConstraints = {
 				@UniqueConstraint(columnNames={"app_id_fk_col","ptint_id_fk_col"})
 		})

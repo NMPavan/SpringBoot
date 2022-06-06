@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.HealthCareMini.Entity.SlotRequest;
+import com.example.HealthCareMini.constants.SlotReqStatus;
 import com.example.HealthCareMini.repo.SlotRequestRepo;
 import com.example.HealthCareMini.services.SlotRequestService;
 
@@ -48,4 +49,8 @@ public class ISlotRequestServiceImpl implements SlotRequestService {
 		return slot.getAllPatientSlots(patientMail);
 	}
 
+	@Override
+	public List<SlotRequest> viewSlotsByDoctorMail(String doctorMail) {
+		return slot.getAllDoctorSlots(doctorMail, SlotReqStatus.ACCEPTED.name());
+	}
 }
